@@ -1,4 +1,4 @@
-package com.softnar.app.model;
+	package com.softnar.app.model;
 
 import java.util.Date;
 
@@ -10,7 +10,7 @@ public class Pelicula {
 	private int duracion;
 	private String clasificacion;
 	private String genero;
-	private String imagen;//imagen por default
+	private String imagen="cinema.png";//imagen por default
 	private Date fechaEstreno;
 	private String estatus="Activa";
 	
