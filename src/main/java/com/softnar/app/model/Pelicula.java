@@ -1,20 +1,56 @@
-	package com.softnar.app.model;
+package com.softnar.app.model;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name="Peliculas")
 public class Pelicula {
 	
-	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)  //auto_incremental MYSQL
 	private int id;
 	private String titulo;
-	private int duracion;
-	private String clasificacion;
+	private int duracion=100;
+	private String clasificacion="B";
 	private String genero;
 	private String imagen="cinema.png";//imagen por default
 	private Date fechaEstreno;
 	private String estatus="Activa";
+	//@Transient//ignorar este atributo derante la persistencia 
+	@OneToOne
+	@JoinColumn(name="idDetalle")
+	private Detalle detalle;
+	
+	@OneToMany(mappedBy="pelicula",fetch=FetchType.EAGER)
+	private List<Horario> horarios;
 	
 	
+
+
+
+
+
+
+	public Pelicula() {
+		System.out.println("Constructor Pelicula");
+	}
+			
+	
+	
+
+
 	public int getId() {
 		return id;
 	}
@@ -63,15 +99,33 @@ public class Pelicula {
 	public void setEstatus(String estatus) {
 		this.estatus = estatus;
 	}
+	public Detalle getDetalle() {
+		return detalle;
+	}
+
+
+	public void setDetalle(Detalle detalle) {
+		this.detalle = detalle;
+	}
 	
-	
+
+	public List<Horario> getHorarios() {
+		return horarios;
+	}
+
+	public void setHorarios(List<Horario> horarios) {
+		this.horarios = horarios;
+	}
+
 	@Override
 	public String toString() {
 		return "Pelicula [id=" + id + ", titulo=" + titulo + ", duracion=" + duracion + ", clasificacion="
 				+ clasificacion + ", genero=" + genero + ", imagen=" + imagen + ", fechaEstreno=" + fechaEstreno
-				+ ", estatus=" + estatus + "]";
+				+ ", estatus=" + estatus + ", detalle=" + detalle + "]";
 	}
 	
+	
+ 
 	
 	
 
